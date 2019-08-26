@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.prcrh.dao.HouseDao" >
+
+	<resultMap type="" id="houseInfo">
+		<id column="id" property="id"/>
+		
+		<association property="userInfo">
+			<id column="user_id" property="id"/>
+			<result column="nickname" property="nickname"/>
+			<result column="head_img_url" property="headImgUrl"/>
+		</association>
+		<association property="cityName">
+			<result column="city_name" property="cityName"/>
+		</association>
+		<association property="metroInfo">
+			<result column="metro_name" property="metroName"/>
+			<result column="station" property="station"/>
+		</association>
+		<association property="distirctInfo">
+			<result column="distirct_name" property="distirctName"/>
+			<result column="street" property="street"/>
+		</association>
+	</resultMap>
+
+
+	<select id="findRootHouse" parameterType="cn.com.prcrh.model.house.HouseReq" resultMap="houseInfo">
+		select village, price,room_number,saloon_number,pict_url
+		where user_type=1
+		
+	</select>
+	
+	<select id="findProxyHouse" parameterType="cn.com.prcrh.model.house.HouseReq" resultType="String">
+	select id from prcrh_user_info where open_id = #{openId}
+	</select>
+	
+	<select id="findMetroInfo" parameterType="String" resultType="cn.com.prcrh.model.house.MetroSelect">
+		select id, name, station from prcrh_metro where city_id=#{cityId}
+	</select>
+	
+	<select id="findCityInfo" resultType="cn.com.prcrh.model.house.CitySelect">
+		select id, name from prcrh_city
+	</select>
+	
+	<select id="findDistirctInfo" resultType="cn.com.prcrh.model.house.DistirctSelect">
+		select id, name street from prcrh_city_distirct
+	</select>
+</mapper>
+

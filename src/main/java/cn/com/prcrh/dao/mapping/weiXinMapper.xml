@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.prcrh.dao.WeiXinDao" >
+	<select id="selectUserInfoByOpenId" parameterType="String" resultType="String">
+	select id from prcrh_user_info where open_id = #{openId}
+	</select>
+	
+	<insert id="insertUserInfo" parameterType = "cn.com.prcrh.model.db.UserInfo">
+		insert into prcrh_user_info(id,open_id,app_id,status,crt_time,upd_time)
+		values(#{id, jdbcType=VARCHAR},#{openId, jdbcType=VARCHAR},#{appId, jdbcType=VARCHAR},#{status, jdbcType=INTEGER},#{crtTime,jdbcType=DATE,javaType=Date},#{updTime,jdbcType=DATE,javaType=Date})
+	</insert>
+</mapper>
+
